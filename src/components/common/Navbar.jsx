@@ -3,13 +3,14 @@ import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
 import { BsChevronDown } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { Link, matchPath, useLocation } from "react-router-dom"
-
+import {ImCross} from "react-icons/im"
 import logo from "../../assets/Logo/Logo-Full-Light.png"
 import { NavbarLinks } from "../../data/navbar-links"
 import { apiConnector } from "../../services/apiConnector"
 import { categories } from "../../services/apis"
 import { ACCOUNT_TYPE } from "../../utils/constants"
 import ProfileDropdown from "../core/Auth/ProfileDropDown"
+import MiniNav from "./MiniNav"
 
 // const subLinks = [
 //   {
@@ -35,7 +36,7 @@ function Navbar() {
   const { user } = useSelector((state) => state.profile)
   const { totalItems } = useSelector((state) => state.cart)
   const location = useLocation()
-
+  const [isClose, setIsClose] = useState(false);
   const [subLinks, setSubLinks] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -58,13 +59,20 @@ function Navbar() {
     return matchPath({ path: route }, location.pathname)
   }
 
+  const handleHamburger = () =>{
+    isClose = isClose ? setIsClose(false) : setIsClose(true);  
+  }
+
   return (
     <div
       className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
         location.pathname !== "/" ? "bg-richblack-800" : ""
       } transition-all duration-200`}
     >
-      <div className="flex w-11/12 max-w-maxContent items-center justify-between">
+      <div className= {`flex fixed ${
+      location.pathname !== "/" ? "bg-richblack-800" : "bg-richblack-900"
+      } z-40 lg:relative  w-[100%] h-[8%] border-b-[1px] lg:border-none border-b-richblack-500  lg:w-11/12 
+        max-w-maxContent items-center justify-between`}>
         {/* Logo */}
         <Link to="/">
           <img src={logo} alt="Logo" width={160} height={32} loading="lazy" />
@@ -159,9 +167,26 @@ function Navbar() {
           )}
           {token !== null && <ProfileDropdown />}
         </div>
-        <button className="mr-4 md:hidden">
-          <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
-        </button>
+
+        {
+          isClose === false ? (
+            <button className="mr-4 md:hidden"
+              onClick={handleHamburger}>
+              <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+            </button>
+          ) :
+          (
+            <button className="mr-4 md:hidden"
+            onClick={handleHamburger}>
+              <ImCross fontSize={24} fill="#AFB2BF" />
+            </button>
+          )
+        }
+        {
+          isClose && <MiniNav 
+                        isClose={isClose}
+                        handleHamburger={handleHamburger} />
+        }
       </div>
     </div>
   )
