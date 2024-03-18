@@ -52,7 +52,7 @@ const MiniNav= ({handleHamburger, isClose}) =>{
 
   return (
     <div
-    className={`moving-div-left
+    className={`moving-div-left md:hidden lg:hidden
       flex flex-col fixed right-0 top-[57px] h-screen  justify-center border-l-[1px] z-[1000]
       border-l-richblack-700 w-[40%] ${
       location.pathname !== "/" ? "bg-richblack-800" : "bg-richblack-900"
