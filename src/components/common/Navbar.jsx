@@ -60,7 +60,7 @@ function Navbar() {
   }
 
   const handleHamburger = () =>{
-    isClose = isClose ? setIsClose(false) : setIsClose(true);  
+     setIsClose(!isClose)
   }
 
   return (
