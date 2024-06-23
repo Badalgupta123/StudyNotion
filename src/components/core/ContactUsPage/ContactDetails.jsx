@@ -15,7 +15,7 @@ const contactDetails = [
     heading: "Visit us",
     description: "Come and say hello at our office HQ.",
     details:
-      "Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016",
+      "789 Park Avenue, Flat No. 12B, MG Road, Bengaluru, Karnataka 560001, India",
   },
   {
     icon: "IoCall",
