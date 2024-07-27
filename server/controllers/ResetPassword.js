@@ -6,6 +6,7 @@ exports.resetPasswordToken = async (req, res) => {
   try {
     const email = req.body.email
     const user = await User.findOne({ email: email })
+    const frontend_URL = process.env.FRONTEND_URL
     if (!user) {
       return res.json({
         success: false,
@@ -25,7 +26,7 @@ exports.resetPasswordToken = async (req, res) => {
     console.log("DETAILS", updatedDetails)
 
     // const url = `http://localhost:3000/update-password/${token}`
-    const url = `https://studynotion-edtech-project.vercel.app/update-password/${token}`
+    const url = `${frontend_URL}/update-password/${token}`
 
     await mailSender(
       email,
